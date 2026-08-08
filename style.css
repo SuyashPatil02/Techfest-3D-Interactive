@@ -1,0 +1,807 @@
+/* ==========================================
+   PHASE 4: DESIGN SYSTEM & VARIABLES
+========================================== */
+:root {
+    --color-bg: #030305;
+    --color-cyan: #00f3ff;
+    --color-violet: #bc13fe;
+    --color-text: #ffffff;
+    --color-text-dim: rgba(255, 255, 255, 0.7);
+    --color-text-dark: rgba(255, 255, 255, 0.4);
+
+    --glass-bg: rgba(10, 10, 18, 0.5);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-border-highlight: rgba(0, 243, 255, 0.25);
+
+    --font-heading: 'Orbitron', sans-serif;
+    --font-body: 'Space Grotesk', sans-serif;
+
+    --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================
+   RESET, FOUNDATION & ACCESSIBILITY
+========================================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Premium Focus States for Keyboard Navigation */
+*:focus-visible {
+    outline: 2px solid var(--color-cyan);
+    outline-offset: 4px;
+    border-radius: 2px;
+}
+
+/* Custom cursor default state (Desktop only) */
+@media (pointer: fine) {
+
+    body,
+    html {
+        cursor: none;
+    }
+}
+
+/* ==========================================
+   CANVAS & STACKING CONTEXT (FROZEN)
+========================================== */
+#bg {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    background-color: var(--color-bg);
+}
+
+#scroll-container {
+    position: relative;
+    width: 100%;
+    z-index: 10;
+}
+
+.scene-section {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 8vw;
+    pointer-events: none;
+}
+
+.scene-section * {
+    pointer-events: auto;
+}
+
+.final-section {
+    padding-bottom: 12rem;
+}
+
+/* ==========================================
+   CUSTOM CURSOR (FROZEN)
+========================================== */
+#cursor-dot,
+#cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+}
+
+#cursor-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-cyan);
+    box-shadow: 0 0 8px var(--color-cyan);
+}
+
+#cursor-ring {
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(188, 19, 254, 0.5);
+    transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+@media (pointer: coarse) {
+
+    #cursor-dot,
+    #cursor-ring {
+        display: none !important;
+    }
+}
+
+/* ==========================================
+   TOP NAVIGATION BAR (REFINED)
+========================================== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.25rem 4vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: linear-gradient(180deg, rgba(3, 3, 5, 0.85) 0%, rgba(3, 3, 5, 0.2) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 243, 255, 0.05);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    pointer-events: auto;
+}
+
+.nav-brand {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-heading);
+    cursor: pointer;
+}
+
+.brand-title {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    color: var(--color-text);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.brand-subtitle {
+    font-size: 0.65rem;
+    color: var(--color-cyan);
+    letter-spacing: 0.25em;
+    font-weight: 700;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.nav-link {
+    color: var(--color-text-dim);
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    transition: color var(--transition-smooth);
+    text-transform: uppercase;
+}
+
+@media (hover: hover) {
+    .nav-link:hover {
+        color: var(--color-text);
+        text-shadow: 0 0 8px var(--color-cyan);
+    }
+}
+
+.register-btn {
+    border: 1px solid var(--glass-border-highlight);
+    padding: 0.6rem 1.5rem;
+    color: var(--color-cyan);
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    background: rgba(0, 243, 255, 0.03);
+    border-radius: 2px;
+    transition: all var(--transition-smooth);
+}
+
+@media (hover: hover) {
+    .register-btn:hover {
+        background: rgba(0, 243, 255, 0.1);
+        border-color: var(--color-cyan);
+        box-shadow: 0 0 20px rgba(0, 243, 255, 0.2), inset 0 0 10px rgba(0, 243, 255, 0.1);
+        color: #ffffff;
+    }
+}
+
+/* ==========================================
+   HUD ELEMENTS (REFINED)
+========================================== */
+.hud {
+    position: fixed;
+    bottom: 2.5rem;
+    z-index: 90;
+    font-family: var(--font-heading);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--color-text-dark);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.hud-left {
+    left: 4vw;
+}
+
+.hud-right {
+    right: 4vw;
+    text-align: right;
+}
+
+.pulse-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-cyan);
+    border-radius: 50%;
+    margin-right: 6px;
+    box-shadow: 0 0 8px var(--color-cyan);
+    animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.4;
+        transform: scale(0.8);
+    }
+}
+
+/* ==========================================
+   HERO SECTION TYPOGRAPHY (CINEMATIC)
+========================================== */
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-width: 800px;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-title {
+    font-family: var(--font-heading);
+    font-size: clamp(3.5rem, 8vw, 8rem);
+    font-weight: 900;
+    line-height: 0.9;
+    margin: 0;
+    color: #ffffff;
+    letter-spacing: 0.02em;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+}
+
+.hero-subtitle {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 4vw, 4rem);
+    color: var(--color-violet);
+    margin: 0;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-shadow: 0 0 30px rgba(188, 19, 254, 0.4), 0 4px 10px rgba(0, 0, 0, 0.8);
+}
+
+.hero-statement {
+    font-family: var(--font-heading);
+    font-size: clamp(0.9rem, 1.5vw, 1.5rem);
+    letter-spacing: 0.3em;
+    color: var(--color-cyan);
+    margin: 1rem 0 0 0;
+    font-weight: 600;
+}
+
+.hero-description {
+    color: var(--color-text-dim);
+    line-height: 1.7;
+    font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+    max-width: 540px;
+    margin: 0;
+    font-weight: 300;
+}
+
+/* ==========================================
+   GENERAL SECTION STYLING
+========================================== */
+.section-tag {
+    font-family: var(--font-heading);
+    color: var(--color-violet);
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    margin-bottom: 0.75rem;
+    display: block;
+    font-weight: 700;
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    font-weight: 900;
+    margin: 0 0 1rem 0;
+    color: #ffffff;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+}
+
+.section-text {
+    font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+    color: var(--color-text-dim);
+    max-width: 600px;
+    margin: 0;
+    line-height: 1.6;
+    font-weight: 300;
+}
+
+.text-center {
+    text-align: center;
+    align-items: center;
+}
+
+.text-right {
+    text-align: right;
+    align-items: flex-end;
+    margin-left: auto;
+}
+
+.text-left {
+    text-align: left;
+    align-items: flex-start;
+}
+
+/* ==========================================
+   MAGNETIC CTA BUTTONS (REFINED)
+========================================== */
+.cta-wrapper {
+    margin-top: 1.5rem;
+    display: inline-block;
+}
+
+.cta-button {
+    background: linear-gradient(135deg, rgba(10, 10, 18, 0.7) 0%, rgba(5, 5, 10, 0.9) 100%);
+    border: 1px solid var(--glass-border-highlight);
+    color: #ffffff;
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    padding: 1.25rem 2.5rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 2px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    transition: background var(--transition-smooth), border-color var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+@media (hover: hover) {
+    .cta-button:hover {
+        background: linear-gradient(135deg, rgba(0, 243, 255, 0.1) 0%, rgba(10, 10, 18, 0.9) 100%);
+        border-color: var(--color-cyan);
+        box-shadow: 0 10px 40px rgba(0, 243, 255, 0.25), inset 0 0 15px rgba(0, 243, 255, 0.15);
+    }
+}
+
+.cta-button:active {
+    transform: scale(0.98);
+}
+
+/* ==========================================
+   SCROLL INDICATOR
+========================================== */
+.scroll-indicator {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.6rem;
+    font-family: var(--font-heading);
+    letter-spacing: 0.25em;
+    color: var(--color-text-dark);
+    pointer-events: none;
+}
+
+.scroll-line {
+    width: 1px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.scroll-line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: var(--color-cyan);
+    box-shadow: 0 0 8px var(--color-cyan);
+    animation: scrollDrop 2s infinite cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@keyframes scrollDrop {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(200%);
+    }
+}
+
+/* ==========================================
+   DOMAINS SECTION & GLASS CARDS (PREMIUM)
+========================================== */
+.domains-section {
+    align-items: center;
+}
+
+.domains-header {
+    margin-bottom: 4rem;
+}
+
+.domains-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    width: 100%;
+    max-width: 1280px;
+}
+
+.tech-card {
+    background: linear-gradient(145deg, rgba(15, 15, 22, 0.5) 0%, rgba(5, 5, 8, 0.8) 100%);
+    border: 1px solid var(--glass-border);
+    padding: 2.5rem 2rem;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color var(--transition-smooth), box-shadow var(--transition-smooth), transform var(--transition-smooth);
+    transform-style: preserve-3d;
+    cursor: pointer;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.tech-card h3 {
+    font-family: var(--font-heading);
+    color: var(--color-cyan);
+    font-size: clamp(1.2rem, 1.5vw, 1.5rem);
+    margin: 0 0 1rem 0;
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+}
+
+.tech-card p {
+    color: var(--color-text-dim);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+    font-weight: 300;
+}
+
+@media (hover: hover) {
+    .tech-card:hover {
+        border-color: rgba(188, 19, 254, 0.4);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(188, 19, 254, 0.05);
+        background: linear-gradient(145deg, rgba(20, 20, 30, 0.7) 0%, rgba(5, 5, 8, 0.9) 100%);
+    }
+}
+
+/* ==========================================
+   FOOTER / DEVELOPER CREDIT (PROTECTED)
+========================================== */
+.site-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 2.5rem 4vw;
+    background: linear-gradient(to top, rgba(3, 3, 5, 0.95) 0%, transparent 100%);
+    pointer-events: auto;
+}
+
+.footer-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--glass-border-highlight) 20%, var(--color-cyan) 50%, var(--glass-border-highlight) 80%, transparent 100%);
+    margin-bottom: 2rem;
+    opacity: 0.5;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-heading);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--color-text-dark);
+}
+
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.footer-brand .brand-title {
+    font-size: 0.9rem;
+    color: var(--color-text);
+    font-weight: 900;
+}
+
+.footer-credits {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.credit-separator {
+    color: var(--color-violet);
+    opacity: 0.5;
+}
+
+.designed-by {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.developer-name {
+    color: var(--color-cyan);
+    text-decoration: none;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    transition: color var(--transition-smooth), text-shadow var(--transition-smooth);
+}
+
+@media (hover: hover) {
+    .developer-name:hover {
+        color: #ffffff;
+        text-shadow: 0 0 10px var(--color-cyan), 0 0 20px var(--color-violet);
+    }
+}
+
+.footer-status {
+    display: flex;
+    align-items: center;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN (PHASE 4 REFINEMENT)
+========================================== */
+@media (max-width: 1024px) {
+    .domains-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .hud {
+        display: none;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+    }
+
+    .footer-brand {
+        align-items: center;
+    }
+
+    .footer-credits {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .credit-separator {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .scene-section {
+        padding: 5rem 6vw;
+    }
+
+    .navbar {
+        padding: 1rem 6vw;
+    }
+
+    .nav-links .nav-link {
+        display: none;
+        /* Mobile menu hidden, keeping CTA */
+    }
+
+    .domains-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .final-section {
+        padding-bottom: 16rem;
+    }
+
+    .text-right,
+    .text-left {
+        text-align: left;
+        align-items: flex-start;
+        margin-left: 0;
+    }
+
+    .designed-by {
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+}
+
+/* ==========================================
+   ACCESSIBILITY: REDUCED MOTION (FROZEN)
+========================================== */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .scroll-line::after {
+        animation: none !important;
+        transform: translateY(0);
+        height: 100%;
+    }
+}
+
+/* ==========================================
+   PHASE 5: MOBILE NAVIGATION SYSTEM
+========================================== */
+.mobile-menu-toggle {
+    display: none;
+    /* Hidden on desktop */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    z-index: 101;
+    pointer-events: auto;
+}
+
+.hamburger-line {
+    width: 24px;
+    height: 2px;
+    background-color: var(--color-text);
+    border-radius: 2px;
+    transition: transform var(--transition-smooth), opacity var(--transition-smooth), background-color var(--transition-smooth);
+    box-shadow: 0 0 5px rgba(0, 243, 255, 0.2);
+}
+
+/* Toggle Active State (X Icon) */
+.mobile-menu-toggle[aria-expanded="true"] .hamburger-line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+    background-color: var(--color-cyan);
+}
+
+.mobile-menu-toggle[aria-expanded="true"] .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-toggle[aria-expanded="true"] .hamburger-line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+    background-color: var(--color-violet);
+}
+
+.mobile-navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(3, 3, 5, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    z-index: 95;
+    /* Sits right under the navbar */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: opacity var(--transition-smooth), visibility var(--transition-smooth), transform var(--transition-smooth);
+    pointer-events: none;
+}
+
+.mobile-navigation.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.mobile-nav-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.mobile-nav-link {
+    font-family: var(--font-heading);
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.mobile-nav-link:active {
+    color: var(--color-cyan);
+    text-shadow: 0 0 15px var(--color-cyan);
+}
+
+/* Desktop Protection */
+@media (min-width: 769px) {
+
+    .mobile-menu-toggle,
+    .mobile-navigation {
+        display: none !important;
+    }
+}
+
+/* Mobile Breakpoint Integration */
+@media (max-width: 768px) {
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
+    .nav-links {
+        display: none;
+        /* Safely disables desktop links */
+    }
+}
