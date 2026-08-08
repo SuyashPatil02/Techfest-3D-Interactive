@@ -32,5 +32,5 @@ This project uses **Vite** as a lightning-fast development server and bundler to
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/SuyashPatil02/techfest-cyborg-landing.git](https://github.com/SuyashPatil02/techfest-cyborg-landing.git)
-   cd techfest-cyborg-landing
+   git clone [[https://github.com/SuyashPatil02/techfest-cyborg-landing.git](https://github.com/SuyashPatil02/techfest-cyborg-landing.git)
+   cd techfest-cyborg-landing](https://github.com/SuyashPatil02/Techfest-3D-Interactive)
