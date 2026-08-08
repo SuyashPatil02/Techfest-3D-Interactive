@@ -22,9 +22,11 @@ A highly responsive, premium futuristic 3D landing page built for the **Techfest
 
 ## 🚀 Screenshots
 
-<img width="1860" height="910" alt="image" src="https://github.com/user-attachments/assets/06b15be8-b5fc-409c-aee5-07587cbf0f52" />
-<img width="1866" height="914" alt="image" src="https://github.com/user-attachments/assets/d4eb38d6-0a53-44c8-8212-1fbcb4e082b2" />
-<img width="1842" height="914" alt="image" src="https://github.com/user-attachments/assets/5fce9319-143d-48b4-bd01-7502d49ad598" />
+<img width="1901" height="869" alt="image" src="https://github.com/user-attachments/assets/745ddfa0-af4a-48e4-adea-8fb0273c6456" />
+<img width="1898" height="873" alt="image" src="https://github.com/user-attachments/assets/9e5ad70a-f51b-4993-a595-601552d12529" />
+<img width="1901" height="872" alt="image" src="https://github.com/user-attachments/assets/8571cf9e-a4c5-46db-a20e-b2132de0680c" />
+<img width="1899" height="866" alt="image" src="https://github.com/user-attachments/assets/e4e0077c-d878-48bc-8ec9-a8749367f4b7" />
+
 
 ## 🛠️ Installation & Setup
 
