@@ -18,7 +18,7 @@ A highly responsive, premium futuristic 3D landing page built for the **Techfest
 
 ## 🌐 Live Demo
 
-🔗 techfest-3-d-interactive-rhi4hj875-suyashpatil02s-projects.vercel.app
+🔗 [techfest-3-d-interactive-rhi4hj875-suyashpatil02s-projects.vercel.app](https://techfest-3-d-interactive.vercel.app/)
 
 ## 🚀 Screenshots
 
